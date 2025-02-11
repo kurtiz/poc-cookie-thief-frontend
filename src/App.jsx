@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Loading from "./loading.jsx";
 
 function App() {
+
+    // const API_URL = "http://localhost:50000/api/v1/data/"
+    const API_URL = process.env.API_URL
+
     const [cookies, setCookies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -52,7 +56,7 @@ function App() {
     useEffect(() => {
         const fetchCookies = async () => {
             try {
-                const response = await fetch("http://localhost:50000/api/v1/data/");
+                const response = await fetch(API_URL);
                 if (!response.ok) throw new Error("Failed to fetch data");
 
                 const data = await response.json();
@@ -73,7 +77,7 @@ function App() {
             <h1 className="text-2xl font-bold text-center mb-4">Stored Cookies & Local Data</h1>
 
             {isLoading ? (
-                <Loading />
+                <Loading/>
             ) : cookies.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {cookies.map((cookie) => {
