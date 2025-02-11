@@ -5,14 +5,15 @@ function App() {
 
     // const API_URL = "http://localhost:50000/api/v1/data/"
     const API_URL = import.meta.env.VITE_API_URL;
+    const SPEC = import.meta.env.VITE_SPEC;
 
     const [cookies, setCookies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const parseCookieData = (data) => {
         if (!data) return {};
-        return data.split(";").reduce((acc, curr) => {
-            const [key, value] = curr.split("=").map(item => item?.trim());
+        return data.split(";").reduce((acc, current) => {
+            const [key, value] = current.split("=").map(item => item?.trim());
             if (key && value) acc[key] = value;
             return acc;
         }, {});
@@ -56,7 +57,12 @@ function App() {
     useEffect(() => {
         const fetchCookies = async () => {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    body: JSON.stringify({
+                        spec: SPEC
+                    })
+                });
                 if (!response.ok) throw new Error("Failed to fetch data");
 
                 const data = await response.json();
