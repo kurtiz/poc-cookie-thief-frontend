@@ -59,9 +59,9 @@ function App() {
             try {
                 const response = await fetch(API_URL, {
                     method: "GET",
-                    body: JSON.stringify({
+                    headers: {
                         spec: SPEC
-                    })
+                    },
                 });
                 if (!response.ok) throw new Error("Failed to fetch data");
 
