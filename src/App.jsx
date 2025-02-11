@@ -4,7 +4,7 @@ import Loading from "./loading.jsx";
 function App() {
 
     // const API_URL = "http://localhost:50000/api/v1/data/"
-    const API_URL = process.env.API_URL
+    const API_URL = import.meta.env.API_URL
 
     const [cookies, setCookies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
