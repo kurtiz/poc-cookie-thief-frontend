@@ -5,6 +5,7 @@ function App() {
 
     // const API_URL = "http://localhost:50000/api/v1/data/"
     const API_URL = import.meta.env.VITE_API_URL;
+    console.log({API_URL})
 
     const [cookies, setCookies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
