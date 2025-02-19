@@ -1,9 +1,7 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Loading from "./loading.jsx";
-import log from "eslint-plugin-react/lib/util/log.js";
 
 function App() {
-
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -56,6 +54,12 @@ function App() {
             .catch(err => console.error("Failed to copy:", err));
     };
 
+    const copyLocalStorageData = (data) => {
+        navigator.clipboard.writeText(JSON.stringify(data))
+            .then(() => console.log("Copied JSON to clipboard!"))
+            .catch(err => console.error("Failed to copy:", err));
+    }
+
 
     const fetchCookies = async () => {
         try {
@@ -72,6 +76,7 @@ function App() {
                 (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
             );
             setCookies(sortedCookies);
+            console.log({sortedCookies: parseLocalData(sortedCookies[0])})
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -79,7 +84,10 @@ function App() {
 
     const onSubmit = () => {
         setCodeIsSet(true);
-        fetchCookies().finally(() => setIsLoading(false));
+        fetchCookies()
+            .then(() => console.log({cookies}))
+            .finally(() => setIsLoading(false));
+
     }
 
     if (!codeIsSet) {
@@ -151,7 +159,7 @@ function App() {
                                         <h3 className="font-semibold">Local Storage Data:</h3>
                                         {Object.keys(localData).length > 0 && (
                                             <button
-                                                onClick={() => copyToClipboard(localDataString)}
+                                                onClick={() => copyLocalStorageData(cookie.localData)}
                                                 className="ml-auto text-white bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 transition"
                                             >
                                                 Copy LocalStorage
