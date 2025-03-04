@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import Loading from "./loading.jsx";
 
 function App() {
@@ -80,7 +80,6 @@ function App() {
                 cookies: cookies.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()),
                 expanded: false
             }));
-            console.log(profilesArray)
 
             setProfiles(profilesArray);
         } catch (error) {
@@ -93,7 +92,7 @@ function App() {
     const toggleProfile = (index) => {
         setProfiles(prev =>
             prev.map((profile, i) =>
-                i === index ? { ...profile, expanded: !profile.expanded } : profile
+                i === index ? {...profile, expanded: !profile.expanded} : profile
             )
         );
     };
@@ -106,7 +105,8 @@ function App() {
     if (!codeIsSet) {
         return (
             <div className="flex h-[70vh] items-center justify-center">
-                <div className="h-[3/4] w-2/3 shadow shadow-md border border-gray-200 p-6 py-9 flex flex-col gap-y-2 rounded-md">
+                <div
+                    className="h-[3/4] w-2/3 shadow shadow-md border border-gray-200 p-6 py-9 flex flex-col gap-y-2 rounded-md">
                     Enter Key:
                     <input
                         placeholder="key"
@@ -129,7 +129,7 @@ function App() {
             <h1 className="text-2xl font-bold text-center mb-4">Stored Cookies & Local Data</h1>
 
             {isLoading ? (
-                <Loading />
+                <Loading/>
             ) : profiles.length > 0 ? (
                 <div>
                     {profiles.map((profile, index) => (
@@ -153,7 +153,8 @@ function App() {
                                             const localData = parseLocalData(cookie.localData);
 
                                             return (
-                                                <div key={cookie._id} className="bg-white shadow-lg rounded-lg p-4 mt-2">
+                                                <div key={cookie._id}
+                                                     className="bg-white shadow-lg rounded-lg p-4 mt-2">
                                                     <div className="flex items-center">
                                                         <h2 className="text-lg font-semibold">{cookie.url}</h2>
                                                         <button
